@@ -140,10 +140,42 @@ function start() {
     }
 
     // colisão entre objetos
-    // TODO: aula 14 assim
+    // TODO: aula 14 
     function colisao() {
         var colisao1 = ($("#jogador").collision($("#inimigo1")));
+        //jogador com o inimigo1
+
+        if(colisao1.length > 0) {
+            inimigo1X = parseInt($("#inimigo1").css("left"));
+            inimigo1Y = parseInt($("#inimigo1").css("top"));
+            explosao1(inimigo1X, inimigo1Y);
+
+            posicaoY = parseInt(Math.random() * 334);
+            $("#inimigo1").css("left", 694);
+            $("#inimigo1").css("top", posicaoY);
+        }
 
         console.log(colisao1)
+    }
+
+    // explosão 1
+    function explosao1(inimigo1X, inimigo1Y) {
+        $("#fundoGame").append("<div id='explosao1'></div>");
+        // TODO: a imagem da explosão não está renderizando
+        $("#explosao1").css("background-image", "url(jogo1\imgs\explosao.png)");
+        var div = $("#explosao1");
+        div.css("top", inimigo1Y);
+        div.css("left", inimigo1X);
+        // animate(): função do jQuery animate, onde indico o tamanho; opacity e a velocidade
+        div.animate({width: 200, opacity: 0}, "slow");
+
+        // variável de tempo, chamada de explosao, que será executada após 1 segundo
+        var tempoExplosao = window.setInterval(removeExplosao, 1000);
+
+        function removeExplosao() {
+            div.remove();
+            window.clearInterval(tempoExplosao);
+            tempoExplosao = null;
+        }
     }
 } // Fim da função
