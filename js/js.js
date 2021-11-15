@@ -140,6 +140,7 @@ function start() {
     }
 
     // colisão entre objetos
+    // TODO: aula 14
     function colisao() {
         var colisao1 = ($("#jogador").collision($("#inimigo1")));
 
